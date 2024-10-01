@@ -1,0 +1,4 @@
+Flask
+trransformers
+AutoTokenizer 
+AutoModelForSeq2SeqLM
