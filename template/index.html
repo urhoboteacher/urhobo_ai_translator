@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urhobo Translator</title>
+
+    <!-- Add some CSS styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.5rem;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            background-color: #f507d5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        h3 {
+            font-size: 2rem;
+            color: #555;
+        }
+    
+
+h4 {
+    font-size: 2rem;
+    color: #7e084db2;
+}
+
+        p#translatedText {
+            font-size: 1.8rem;
+            color: #000;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Urhobo AI Translator</h1>
+        <h4>Aunty Ruky Urhobo School</h4>
+
+        <!-- Input for the text to translate -->
+        <input type="text" id="inputText" placeholder="Enter text to translate">
+
+        <!-- Button to trigger translation -->
+        <button onclick="translateText()">Translate</button>
+
+        <!-- Output for the translated text -->
+        <h3>Translated Urhobo Text:</h3>
+        <p id="translatedText"></p>
+    </div>
+
+    <!-- JavaScript to handle the button click and send the request -->
+    <script>
+        async function translateText() {
+            let inputText = document.getElementById('inputText').value;  // Get the input text
+
+            // Send the input text to Flask API
+            const response = await fetch('/translate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: inputText })  // Send input text in JSON format
+            });
+
+            // Handle the response
+            if (response.ok) {
+                const data = await response.json();  // Get the response as JSON
+                document.getElementById('translatedText').innerText = data.translated_text;  // Display the translated text
+            } else {
+                document.getElementById('translatedText').innerText = 'Error: Failed to translate';
+            }
+        }
+    </script>
+</body>
+</html>
